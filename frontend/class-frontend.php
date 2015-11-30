@@ -239,13 +239,13 @@ class WPSEO_Frontend {
 			$object = $GLOBALS['wp_query']->get_queried_object();
 		}
 
-		$title = WPSEO_Meta::get_value( 'title', $object->ID );
+´		$title = WPSEO_Meta::get_value( 'title', isset( $object->ID ) && $object->ID );
 
 		if ( $title !== '' ) {
 			return wpseo_replace_vars( $title, $object );
 		}
 
-		$post_type = ( isset( $object->post_type ) ? $object->post_type : $object->query_var );
+		$post_type = ( isset( $object->post_type ) ? $object->post_type : isset( $object->query_var ) && $object->query_var );
 
 		return $this->get_title_from_options( 'title-' . $post_type, $object );
 	}
